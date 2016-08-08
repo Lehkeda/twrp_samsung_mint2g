@@ -17,7 +17,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Include sprd-common related aspects
-$(call inherit-product, device/samsung/sprd-common/device.mk)
+#$(call inherit-product, device/samsung/sprd-common/device.mk)
 
 ## (2) Also get non-open-source specific aspects if available
 $(call inherit-product-if-exists, vendor/samsung/mint2g/mint2g-vendor.mk)
@@ -116,3 +116,5 @@ $(call inherit-product, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)
 # Boot animation
 TARGET_SCREEN_HEIGHT := 320
 TARGET_SCREEN_WIDTH := 240
+
+

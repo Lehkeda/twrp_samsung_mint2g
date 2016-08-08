@@ -26,14 +26,16 @@ TARGET_OTA_ASSERT_DEVICE := mint,mint2g,GT-S5282,GT-S5280
 
 # Architecture
 TARGET_ARCH := arm
-TARGET_ARCH_VARIANT := armv7-a
-TARGET_ARCH_VARIANT_CPU := cortex-a5
-TARGET_CPU_VARIANT := cortex-a5
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT_CPU := cortex-a9
+TARGET_CPU_VARIANT := cortex-a9
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_CPU_SMP := true
-#TARGET_CORTEX_CACHE_LINE_32 := true
+ARCH_ARM_HAVE_TLS_REGISTER := true
+ARCH_ARM_HAVE_NEON := true
+TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
 # Board
 TARGET_BOOTLOADER_BOARD_NAME := mint2g
@@ -46,8 +48,8 @@ COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
-TARGET_KERNEL_SOURCE := kernel/samsung/mint2g
-TARGET_KERNEL_CONFIG := cyanogenmod_mint_defconfig
+#TARGET_KERNEL_SOURCE := kernel/samsung/mint2g
+#TARGET_KERNEL_CONFIG := cyanogenmod_mint_defconfig
 BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_PROVIDES_INITRC := true
 
@@ -69,8 +71,8 @@ BOARD_USE_CUSTOM_RECOVERY_FONT := "<font_7x16.h>"
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/mint2g/recovery/recovery_keys.c
 #TARGET_RECOVERY_INITRC := device/samsung/mint/recovery/recovery.rc
 #BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/mint/recovery/graphics.c
+#TARGET_RECOVERY_FSTAB := device/samsung/mint2g/recovery.fstab
 BOARD_HAS_NO_MISC_PARTITION := true
-TARGET_RECOVERY_FSTAB := device/samsung/mint2g/recovery.fstab
 BOARD_SUPPRESS_EMMC_WIPE := true
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 
@@ -127,13 +129,25 @@ PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
 
 
 #twrp
-DEVICE_RESOLUTION := 240x240
+RECOVERY_VARIANT := twrp
+TARGET_RECOVERY_FSTAB := device/samsung/mint2g/recovery/twrp.fstab
+DEVICE_RESOLUTION := 320x320
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
 TW_EXTERNAL_STORAGE_PATH := "/external_sd"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
+TW_INTERNAL_STORAGE_PATH := "/data/media/0"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
 TW_FLASH_FROM_STORAGE := true
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TW_MAX_BRIGHTNESS := 255
 TWRP_EVENT_LOGGING := false
+
+# LZMA compression for recovery's & kernel ramdisk....
+TARGET_PREBUILT_KERNEL := device/samsung/mint2g/kernel
+BOARD_CUSTOM_BOOTIMG_MK := device/samsung/mint2g/custombootimg.mk
+BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
+PRODUCT_COPY_FILES += device/samsung/mint2g/kernel:kernel
+
+
