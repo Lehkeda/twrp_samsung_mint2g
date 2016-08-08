@@ -19,9 +19,10 @@ Device Tree for Samsung Galaxy Star GT-S5280/2 to build TWRP recovery !!!
 * OMNI and SlimRoms ROMs already include TWRP source so no need to clone them again !
 * Clone android-6.0 branch to get TWRP 3.0.2  .
 
-## Credits 
+## Credits (No specific order )
 * Corphish .
 * LehKeda .
-
+* Dreamstar .
+* andii_nr .
 
 
