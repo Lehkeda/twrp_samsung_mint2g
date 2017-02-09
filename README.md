@@ -1,29 +1,29 @@
 # Samsung Galaxy Star
-Device Configuration for Samsung Galaxy Star to build CyanogenMod 14.1 (Android 7.1).
+Device Tree for Samsung Galaxy Star GT-S5280/2 to build TWRP recovery !!!
 
 ## Pre-requisites
-* Android build environment set up.
-* Basic knowledge of Linux Terminal commands.
 
-## How to build
-* First of all, initialize the repo in a directory of your choice with **cm-14.1** branch.
-* To get device specific stuffs and source patches, use this local manifest - https://github.com/TeamButter/local_manifest/blob/cm-14.1/mint2g.xml, and put it in .repo/local_manifests.
-* `repo sync`
-* `source build/envsetup.sh && brunch mint2g`
+* Any ROM source like LineageOS-14.1 or any other ROM .
+* TWRP recovery source - https://github.com/omnirom/android_bootable_recovery - Clone it under bootable/recovery-twrp .
+* Device Tree to build TWRP -This repository-. Clone it under device/samsung/mint2g .
+* (Optional) Kernel source in case you don't want to use prebuilt kernel . Clone it under kernel/samsung/mint2g .
 
-## About our forks of CM source repos
-We will try to update them as regularly as possible.
+## Building
+* Open terminal in the source folder and type 
+	* source build/envsetup.sh
+	* lunch lineage_mint2g-userdebug
+	* make recoveryimage -j# - replace # with number of your cpu cores or the one you want -
+	* Happy building ^_^
 
-## Credits (no specific order)
-* halfpsych
-* unjust
-* Doc
-* pawitp
-* dhinesh77
-* Alonso1398
-* ngoquang2708
-* koquantam
-* Lehkeda
-* Dreamstar
-* wakaber
-* me?
+## Notes
+* If you are trying to build TWRP-3.0.3/Nougat recovery or higher , it probably won't because recovery image will probably be larger than recovery partation .
+* OMNI and SlimRoms ROMs already include TWRP source so no need to clone them again unless you want recent TWRP version  !
+* Clone android-6.0 branch to get TWRP 3.0.2  .
+* Clone android-7.1 branch to get TWRP 3.0.3  .
+* You may need to edit device tree to get it working with different ROMs like OMNI , Slim , ....
+
+## Credits (No specific order )
+* Corphish .
+* LehKeda .
+* Dreamstar .
+* andii_nr .
