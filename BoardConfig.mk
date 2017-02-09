@@ -34,34 +34,46 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 ARCH_ARM_HAVE_NEON := true
-TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
 # Board
 TARGET_BOOTLOADER_BOARD_NAME := mint2g
 
 # Platform
 TARGET_BOARD_PLATFORM := sc8810
-COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
+BOARD_GLOBAL_CFLAGS += -DSPRD_HARDWARE
+TARGET_INIT_PARSE_PROC_CPUINFO := true
+ALLOW_TEXT_RELOCATIONS := true
+
 
 # Kernel
 BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
-#TARGET_KERNEL_SOURCE := kernel/samsung/mint2g
-#TARGET_KERNEL_CONFIG := cyanogenmod_mint_defconfig
+# TARGET_KERNEL_SOURCE := kernel/samsung/mint2g
+# TARGET_KERNEL_CONFIG := cyanogenmod_mint_defconfig
 BOARD_KERNEL_IMAGE_NAME := Image
-TARGET_PROVIDES_INITRC := true
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
+KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin
+KERNEL_HAS_FINIT_MODULE := false
+
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 10485760
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 20485760
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 20971520
 BOARD_CACHEIMAGE_PARTITION_SIZE := 536870912
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 939524096
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2172649472
 BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+## original system partition size 
+#BOARD_SYSTEMIMAGE_PARTITION_SIZE := 939524096
+
+## Lehkeda's speakig : I've changed partition system size to fit my new system partition 
+# size as I have repartitioned my device and you shouldn't use this new size 
+# if you're going to use this tree for any thing so you must first use the old 
+# system parition size which is above ^^^
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 912261120
+
 
 # Recovery
 DEVICE_RESOLUTION := 240x320
@@ -69,25 +81,45 @@ BOARD_LDPI_RECOVERY := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := "<font_7x16.h>"
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/mint2g/recovery/recovery_keys.c
-#TARGET_RECOVERY_INITRC := device/samsung/mint/recovery/recovery.rc
-#BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/mint/recovery/graphics.c
-#TARGET_RECOVERY_FSTAB := device/samsung/mint2g/recovery.fstab
 BOARD_HAS_NO_MISC_PARTITION := true
+# TARGET_RECOVERY_FSTAB := device/samsung/mint2g/recovery.fstab
 BOARD_SUPPRESS_EMMC_WIPE := true
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 
+# UMS
+BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun/file"
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/dwc_otg.0/gadget/lun0/file"
 
 # Graphics
 BOARD_USE_MHEAP_SCREENSHOT := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
+BOARD_EGL_NEEDS_FNW := true
+BOARD_EGL_NEEDS_HANDLE_VALUE := true
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := TRUE
-HWUI_COMPILE_FOR_PERF := true
+
+# Bionic
+BOARD_GLOBAL_CFLAGS += -DUSES_LEGACY_BLOBS
+MALLOC_SVELTE := true
+BOARD_USES_LEGACY_MMAP := true
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
 # Camera
-COMMON_GLOBAL_CFLAGS += -DMR0_CAMERA_BLOB
+NEEDS_MEMORYHEAPION := true
+CAMERA_SUPPORT_SIZE := 2M
+TARGET_BOARD_NO_FRONT_SENSOR := true
+TARGET_CAMERA_HAS_NO_FLASH := true
+BOARD_NUMBER_OF_CAMERAS := 1
+
+# RIL
+BOARD_RIL_CLASS += ../../../device/samsung/mint2g/ril
+BOARD_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/mint2g/bluetooth
+
+# FM Radio
+BOARD_HAVE_FM_RADIO := true
+BOARD_FM_DEVICE := bcm4330
 
 
 # Connectivity - Wi-Fi
@@ -111,27 +143,39 @@ BOARD_HAVE_SAMSUNG_WIFI          := true
 
 
 # Audio
-COMMON_GLOBAL_CFLAGS += -DMR0_AUDIO_BLOB
-
-# Sensors
-USE_SPRD_SENSOR_LIB := true
-BOARD_HAVE_ACC := Lis3dh
-BOARD_ACC_INSTALL := 6
-BOARD_HAVE_ORI := NULL
-BOARD_HAVE_PLS := NULL
+BOARD_GLOBAL_CFLAGS += -DMR0_AUDIO_BLOB -DICS_AUDIO_BLOB
+USE_LEGACY_AUDIO_POLICY := 1
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 320
 TARGET_SCREEN_WIDTH := 240
 
+# Charger
+BOARD_CHARGER_ENABLE_SUSPEND := true
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+
+# Healthd
+BOARD_HAL_STATIC_LIBRARIES := libhealthd.sc8810
+
+# SELinux
+SERVICES_WITHOUT_SELINUX_DOMAIN := true
+BOARD_SEPOLICY_DIRS += \
+    device/samsung/mint2g/sepolicy
+
+# Art coonfigurations 
+WITH_DEXPREOPT := true
+DONT_DEXPREOPT_PREBUILTS := true
+
 # Host specific
-PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
+#PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
+#ANDROID_COMPILE_WITH_JACK := false
+#USE_NINJA := false
 
 
 #twrp
 RECOVERY_VARIANT := twrp
 TARGET_RECOVERY_FSTAB := device/samsung/mint2g/recovery/twrp.fstab
-DEVICE_RESOLUTION := 320x320
+HAVE_SELINUX := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
@@ -143,11 +187,28 @@ TW_FLASH_FROM_STORAGE := true
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TW_MAX_BRIGHTNESS := 255
 TWRP_EVENT_LOGGING := false
+TW_HAS_DOWNLOAD_MODE := true
+TW_NO_REBOOT_BOOTLOADER := true
+TW_DEFAULT_EXTERNAL_STORAGE := true
+
+#######
+# twrp can work with toybox but I'll stick to busybox as it's used a lot .
+
+# TW_USE_TOOLBOX := true
+
+#######
+# In nougat and up twrp removed old theme so you
+# should specificy a them to use or define your device 
+# resolution and twrp will automatically scale it for you . 
+# here I use my own edited theme to make twrp looks good on my (GT-S5282) .
+
+# DEVICE_RESOLUTION := 240x320 
+# TW_THEME := portrait_ldpi
+TW_CUSTOM_THEME := device/samsung/mint2g/recovery/mint2g_portrait_ldpi
 
 # LZMA compression for recovery's & kernel ramdisk....
 TARGET_PREBUILT_KERNEL := device/samsung/mint2g/kernel
-BOARD_CUSTOM_BOOTIMG_MK := device/samsung/mint2g/custombootimg.mk
-BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
 PRODUCT_COPY_FILES += device/samsung/mint2g/kernel:kernel
-
+# BOARD_CUSTOM_BOOTIMG_MK := device/samsung/mint2g/custombootimg.mk
+# BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
 

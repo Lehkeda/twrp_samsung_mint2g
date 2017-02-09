@@ -1,28 +1,29 @@
 # Samsung Galaxy Star
-Device Tree for Samsung Galaxy Star GT-S5280/2 to build TWRP recovery !!!
+Device Configuration for Samsung Galaxy Star to build CyanogenMod 14.1 (Android 7.1).
 
 ## Pre-requisites
+* Android build environment set up.
+* Basic knowledge of Linux Terminal commands.
 
-* Any ROM source like cm-11.0 or cm-12.1 .
-* TWRP recovery source - https://github.com/omnirom/android_bootable_recovery - Clone this repository in bootable/recovery-twrp .
-* Device Tree to build TWRP - This repository. Clone this repository in device/samsung/mint2g .
+## How to build
+* First of all, initialize the repo in a directory of your choice with **cm-14.1** branch.
+* To get device specific stuffs and source patches, use this local manifest - https://github.com/TeamButter/local_manifest/blob/cm-14.1/mint2g.xml, and put it in .repo/local_manifests.
+* `repo sync`
+* `source build/envsetup.sh && brunch mint2g`
 
-## Building
-* Open terminal in the source folder (of cm-12.1) and type 
-	* source build/envsetup.sh
-	* lunch cm_mint2g-userdebug
-	* make recoveryimage -j# - replace # with number of your cpu cores or the one you want -
-	* Happy building ^_^
+## About our forks of CM source repos
+We will try to update them as regularly as possible.
 
-## Notes 
-* DON'T use cm13 source code as you will get errors .
-* OMNI and SlimRoms ROMs already include TWRP source so no need to clone them again !
-* Clone android-6.0 branch to get TWRP 3.0.2  .
-
-## Credits (No specific order )
-* Corphish .
-* LehKeda .
-* Dreamstar .
-* andii_nr .
-
-
+## Credits (no specific order)
+* halfpsych
+* unjust
+* Doc
+* pawitp
+* dhinesh77
+* Alonso1398
+* ngoquang2708
+* koquantam
+* Lehkeda
+* Dreamstar
+* wakaber
+* me?
