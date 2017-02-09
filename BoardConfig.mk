@@ -49,8 +49,8 @@ ALLOW_TEXT_RELOCATIONS := true
 BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
-TARGET_KERNEL_SOURCE := kernel/samsung/mint2g
-TARGET_KERNEL_CONFIG := cyanogenmod_mint_defconfig
+# TARGET_KERNEL_SOURCE := kernel/samsung/mint2g
+# TARGET_KERNEL_CONFIG := cyanogenmod_mint_defconfig
 BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
 KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin
@@ -207,8 +207,8 @@ TW_DEFAULT_EXTERNAL_STORAGE := true
 TW_CUSTOM_THEME := device/samsung/mint2g/recovery/mint2g_portrait_ldpi
 
 # LZMA compression for recovery's & kernel ramdisk....
-# TARGET_PREBUILT_KERNEL := device/samsung/mint2g/kernel
-# PRODUCT_COPY_FILES += device/samsung/mint2g/kernel:kernel
+TARGET_PREBUILT_KERNEL := device/samsung/mint2g/kernel
+PRODUCT_COPY_FILES += device/samsung/mint2g/kernel:kernel
 # BOARD_CUSTOM_BOOTIMG_MK := device/samsung/mint2g/custombootimg.mk
 # BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
 
