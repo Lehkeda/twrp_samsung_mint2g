@@ -1,2 +1,0 @@
-# zRAM
-/dev/block/zram0    none    swap    defaults  zramsize=157286400  swapprio=0
