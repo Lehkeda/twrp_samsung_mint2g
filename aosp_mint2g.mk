@@ -19,7 +19,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/samsung/mint2g/device_mint2g.mk)
 
 # Overrides
-PRODUCT_NAME := full_mint2g
+PRODUCT_NAME := aosp_mint2g
 PRODUCT_DEVICE := mint2g
 PRODUCT_BRAND := samsung
 PRODUCT_MODEL := GT-S5282
