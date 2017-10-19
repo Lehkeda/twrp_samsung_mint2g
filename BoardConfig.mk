@@ -155,7 +155,7 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
 
 # Healthd
-BOARD_HAL_STATIC_LIBRARIES := libhealthd.sc8810
+#BOARD_HAL_STATIC_LIBRARIES := libhealthd.sc8810
 
 # SELinux
 SERVICES_WITHOUT_SELINUX_DOMAIN := true
@@ -194,7 +194,7 @@ TW_DEFAULT_EXTERNAL_STORAGE := true
 #######
 # twrp can work with toybox but I'll stick to busybox as it's used a lot .
 
-# TW_USE_TOOLBOX := true
+TW_USE_TOOLBOX := true
 
 #######
 # In nougat and up twrp removed old theme so you
@@ -202,9 +202,10 @@ TW_DEFAULT_EXTERNAL_STORAGE := true
 # resolution and twrp will automatically scale it for you . 
 # here I use my own edited theme to make twrp looks good on my (GT-S5282) .
 
-# DEVICE_RESOLUTION := 240x320 
-# TW_THEME := portrait_ldpi
-TW_CUSTOM_THEME := device/samsung/mint2g/recovery/mint2g_portrait_ldpi
+#DEVICE_RESOLUTION := 240x320 
+DEVICE_RESOLUTION := 240x240 
+#TW_THEME := portrait_mdpi
+#TW_CUSTOM_THEME := device/samsung/mint2g/recovery/mint2g_portrait_ldpi
 
 # LZMA compression for recovery's & kernel ramdisk....
 TARGET_PREBUILT_KERNEL := device/samsung/mint2g/kernel
