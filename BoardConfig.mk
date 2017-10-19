@@ -103,49 +103,6 @@ MALLOC_SVELTE := true
 BOARD_USES_LEGACY_MMAP := true
 TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
-# Camera
-NEEDS_MEMORYHEAPION := true
-CAMERA_SUPPORT_SIZE := 2M
-TARGET_BOARD_NO_FRONT_SENSOR := true
-TARGET_CAMERA_HAS_NO_FLASH := true
-BOARD_NUMBER_OF_CAMERAS := 1
-
-# RIL
-BOARD_RIL_CLASS += ../../../device/samsung/mint2g/ril
-BOARD_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
-
-# Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/mint2g/bluetooth
-
-# FM Radio
-BOARD_HAVE_FM_RADIO := true
-BOARD_FM_DEVICE := bcm4330
-
-
-# Connectivity - Wi-Fi
-BOARD_WLAN_DEVICE                := bcmdhd
-BOARD_WLAN_DEVICE_REV            := bcm4330_b1
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
-BOARD_HOSTAPD_DRIVER             := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/dhd.ko"
-WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/dhd/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_STA          := "/system/etc/wifi/bcmdhd_sta.bin"
-WIFI_DRIVER_FW_PATH_AP           := "/system/etc/wifi/bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_P2P          := "/system/etc/wifi/bcmdhd_p2p.bin"
-WIFI_DRIVER_MODULE_NAME          := "dhd"
-WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/etc/wifi/bcmdhd_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
-WIFI_DRIVER_MODULE_AP_ARG        := "firmware_path=/system/etc/wifi/bcmdhd_apsta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
-WIFI_BAND                        := 802_11_ABG
-BOARD_HAVE_SAMSUNG_WIFI          := true
-
-
-# Audio
-BOARD_GLOBAL_CFLAGS += -DMR0_AUDIO_BLOB -DICS_AUDIO_BLOB
-USE_LEGACY_AUDIO_POLICY := 1
-
 # Boot animation
 TARGET_SCREEN_HEIGHT := 320
 TARGET_SCREEN_WIDTH := 240
@@ -162,14 +119,6 @@ SERVICES_WITHOUT_SELINUX_DOMAIN := true
 BOARD_SEPOLICY_DIRS += \
     device/samsung/mint2g/sepolicy
 
-# Art coonfigurations 
-WITH_DEXPREOPT := true
-DONT_DEXPREOPT_PREBUILTS := true
-
-# Host specific
-#PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
-#ANDROID_COMPILE_WITH_JACK := false
-#USE_NINJA := false
 
 
 #twrp
