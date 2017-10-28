@@ -18,6 +18,7 @@ or "bootable/recovery" if you're building using AOSP.
 
 ## Notes
 * If you are trying to build TWRP-3.0.3/Nougat recovery or higher, it probably won't because recovery image will probably be larger than recovery partation.
+* If you are building using Oreo (android 8) you will need those patches to get adb working https://github.com/rINanDO/android_system_core/commit/737c6973574f938355cc80c257241c09fb20bced && https://github.com/rINanDO/android_system_core/commit/0edb536f8c6c3c109268fa08a67d6b8645049de8
 * OMNI and SlimRoms ROMs already include TWRP source so no need to clone them again unless you want recent TWRP version!
 * Clone android-6.0 branch to get TWRP 3.0.2.
 * Clone android-7.1 branch to get TWRP 3.0.3/3.1.1-0.
